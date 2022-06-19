@@ -564,10 +564,15 @@ void CBasePlayer::TraceAttack(entvars_t *pevAttacker, float flDamage, Vector vec
 	bool bShouldBleed = true;
 	bool bShouldSpark = false;
 	bool bHitShield = IsHittingShield(vecDir, ptr);
-	CBasePlayer *pAttacker = (CBasePlayer *)CBasePlayer::Instance(pevAttacker);
 
-	if (CVAR_GET_FLOAT("mp_friendlyfire") == 0 && m_iTeam == pAttacker->m_iTeam)
-		bShouldBleed = false;
+	CBaseEntity *pAttackerEntity = (CBaseEntity *)CBaseEntity::Instance(pevAttacker);
+	if (pAttackerEntity->IsPlayer())
+	{
+		CBasePlayer *pAttacker = (CBasePlayer *)CBasePlayer::Instance(pevAttacker);
+
+		if (CVAR_GET_FLOAT("mp_friendlyfire") == 0 && m_iTeam == pAttacker->m_iTeam)
+			bShouldBleed = false;
+	}
 
 	if (!pev->takedamage)
 		return;
@@ -3581,7 +3586,7 @@ void CBasePlayer::CheckTimeBasedDamage(void)
 	if (!(m_bitsDamageType & DMG_TIMEBASED))
 		return;
 
-	if (abs(gpGlobals->time - m_tbdPrev) < 2)
+	if (fabs(gpGlobals->time - m_tbdPrev) < 2)
 		return;
 
 	m_tbdPrev = gpGlobals->time;
@@ -6598,7 +6603,7 @@ void CBasePlayer::StudioEstimateGait(void)
 		else
 			flYawDiff *= dt;
 
-		if (abs(flYawDiff) < 0.1)
+		if (fabs(flYawDiff) < 0.1)
 			flYawDiff = 0;
 
 		m_flGaityaw += flYawDiff;
