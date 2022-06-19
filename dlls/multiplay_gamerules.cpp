@@ -1609,7 +1609,7 @@ void CHalfLifeMultiplay::ResetCurrentVIP(void)
 
 void CHalfLifeMultiplay::PickNextVIP(void)
 {
-	if (!IsVIPQueueEmpty() != true)
+	if (!IsVIPQueueEmpty())
 	{
 		if (m_pVIP != NULL)
 			ResetCurrentVIP();
@@ -1617,6 +1617,9 @@ void CHalfLifeMultiplay::PickNextVIP(void)
 		for (int i = 0; i < MAX_VIPQUEUES; i++)
 		{
 			m_pVIP = VIPQueue[i];
+			if (!m_pVIP)
+				continue;
+
 			m_pVIP->MakeVIP();
 			VIPQueue[i] = NULL;
 
