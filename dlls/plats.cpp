@@ -670,26 +670,29 @@ void CFuncTrain::Use(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE use
 
 void CFuncTrain::Wait(void)
 {
-	if (m_pevCurrentTarget->message)
+	if (m_pevCurrentTarget)
 	{
-		FireTargets(STRING(m_pevCurrentTarget->message), this, this, USE_TOGGLE, 0);
+		if (m_pevCurrentTarget->message)
+		{
+			FireTargets(STRING(m_pevCurrentTarget->message), this, this, USE_TOGGLE, 0);
 
-		if (FBitSet(m_pevCurrentTarget->spawnflags, SF_CORNER_FIREONCE))
-			m_pevCurrentTarget->message = 0;
-	}
+			if (FBitSet(m_pevCurrentTarget->spawnflags, SF_CORNER_FIREONCE))
+				m_pevCurrentTarget->message = 0;
+		}
 
-	if (FBitSet(m_pevCurrentTarget->spawnflags, SF_TRAIN_WAIT_RETRIGGER) || (pev->spawnflags & SF_TRAIN_WAIT_RETRIGGER))
-	{
-		pev->spawnflags |= SF_TRAIN_WAIT_RETRIGGER;
+		if (FBitSet(m_pevCurrentTarget->spawnflags, SF_TRAIN_WAIT_RETRIGGER) || (pev->spawnflags & SF_TRAIN_WAIT_RETRIGGER))
+		{
+			pev->spawnflags |= SF_TRAIN_WAIT_RETRIGGER;
 
-		if (pev->noiseMovement)
-			STOP_SOUND(edict(), CHAN_STATIC, (char *)STRING(pev->noiseMovement));
+			if (pev->noiseMovement)
+				STOP_SOUND(edict(), CHAN_STATIC, (char*)STRING(pev->noiseMovement));
 
-		if (pev->noiseStopMoving)
-			EMIT_SOUND(ENT(pev), CHAN_VOICE, (char *)STRING(pev->noiseStopMoving), m_volume, ATTN_NORM);
+			if (pev->noiseStopMoving)
+				EMIT_SOUND(ENT(pev), CHAN_VOICE, (char*)STRING(pev->noiseStopMoving), m_volume, ATTN_NORM);
 
-		pev->nextthink = 0;
-		return;
+			pev->nextthink = 0;
+			return;
+		}
 	}
 
 	if (m_flWait != 0)
