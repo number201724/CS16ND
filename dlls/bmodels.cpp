@@ -475,7 +475,7 @@ void CFuncRotating::SpinUp(void)
 
 	Vector vecAVel = pev->avelocity;
 
-	if (abs((int)vecAVel.x) >= abs((int)pev->movedir.x * pev->speed) && abs((int)vecAVel.y) >= abs((int)pev->movedir.y * pev->speed) && abs((int)vecAVel.z) >= abs((int)pev->movedir.z * pev->speed))
+	if (fabs((int)vecAVel.x) >= fabs((int)pev->movedir.x * pev->speed) && fabs((int)vecAVel.y) >= fabs((int)pev->movedir.y * pev->speed) && fabs((int)vecAVel.z) >= fabs((int)pev->movedir.z * pev->speed))
 	{
 		pev->avelocity = pev->movedir * pev->speed;
 		EMIT_SOUND_DYN(ENT(pev), CHAN_STATIC, (char *)STRING(pev->noiseRunning), m_flVolume, m_flAttenuation, SND_CHANGE_PITCH | SND_CHANGE_VOL, FANPITCHMAX);

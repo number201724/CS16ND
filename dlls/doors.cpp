@@ -522,14 +522,14 @@ void CBaseDoor::DoorGoUp(void)
 				{
 					if (pevActivator->origin.y < loY)
 					{
-						if (abs(momentArmY) > abs(momentArmX))
+						if (fabs(momentArmY) > fabs(momentArmX))
 							sign = (momentArmY < 0) ? 1 : -1;
 						else
 							sign = (momentArmX > 0) ? 1 : -1;
 					}
 					else if (pevActivator->origin.y > hiY)
 					{
-						if (abs(momentArmY) > abs(momentArmX))
+						if (fabs(momentArmY) > fabs(momentArmX))
 							sign = (momentArmY < 0) ? 1 : -1;
 						else
 							sign = (momentArmX < 0) ? 1 : -1;
@@ -548,14 +548,14 @@ void CBaseDoor::DoorGoUp(void)
 					}
 					else if (pevActivator->origin.y < loY)
 					{
-						if (abs(momentArmY) > abs(momentArmX))
+						if (fabs(momentArmY) > fabs(momentArmX))
 							sign = (momentArmY > 0) ? 1 : -1;
 						else
 							sign = (momentArmX > 0) ? 1 : -1;
 					}
 					else if (pevActivator->origin.y > hiY)
 					{
-						if (abs(momentArmY) > abs(momentArmX))
+						if (fabs(momentArmY) > fabs(momentArmX))
 							sign = (momentArmY > 0) ? 1 : -1;
 						else
 							sign = (momentArmX < 0) ? 1 : -1;
